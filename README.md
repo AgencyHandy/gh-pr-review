@@ -4,7 +4,8 @@ A portable review spec for auditing one or more related GitHub PRs using `gh` (w
 
 Enables you and your AI Agents to systematically review PRs for code quality, correctness, migrations, edge cases, and more, all based on PR data and GitHub API access instead of local code checkout.
 
-[!IMPORTANT] This is a review checklist, not an auto-fix tool. It is designed to identify issues and risks, not to automatically resolve them. And it can make false positives/negatives, so human judgment is still required for the final verdict.
+> [!IMPORTANT]
+> This is a review checklist, not an auto-fix tool. It is designed to identify issues and risks, not to automatically resolve them. And it can make false positives/negatives, so human judgment is still required for the final verdict.
 
 ## What This Does
 
