@@ -1,9 +1,9 @@
 ---
-name: gh-pr-review-checklist
+name: ahr
 description: Use when the user wants a GitHub PR review via gh CLI (without local checkout), especially for multiple related PRs in one work unit, with a full checklist covering changed files, tests, migration need/correctness, edge cases, code quality, and UI validation steps.
 ---
 
-# GH PR Review Checklist
+# AHR PR Review Checklist
 
 ## Purpose
 
