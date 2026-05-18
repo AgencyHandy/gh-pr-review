@@ -22,6 +22,40 @@ This workflow reviews all provided PRs as one work unit and checks:
 
 Default mode is `full`.
 
+## Quick Start
+
+1. Install the skill:
+
+```bash
+npx skills add AgencyHandy/ahr --skill "ahr"
+```
+
+2. Install slash commands/prompts (global by default):
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/AgencyHandy/ahr/main/scripts/install-commands.sh -o /tmp/ahr-install-commands.sh && chmod +x /tmp/ahr-install-commands.sh && /tmp/ahr-install-commands.sh
+```
+
+The installer auto-detects Codex, Claude, and OpenCode from your system and installs only for detected tools.
+It also respects `CODEX_HOME`, `CLAUDE_CONFIG_DIR`, and `OPENCODE_CONFIG_DIR` when set.
+To pin to a release tag, pass `AHR_REF` (example: `AHR_REF=v0.2.1 /tmp/ahr-install-commands.sh`).
+
+3. Run:
+
+```text
+Codex: /prompts:ahr PRS="https://github.com/org/repo/pull/1 https://github.com/org/repo/pull/2" CONTEXT="..." MODE=full
+Claude/OpenCode: /ahr PRS="https://github.com/org/repo/pull/1 https://github.com/org/repo/pull/2" CONTEXT="..." MODE=full
+```
+
+You can run these slash commands in terminal and desktop app environments for the corresponding tool.
+Examples: Codex desktop app, Claude Code app/CLI, and OpenCode UI/TUI.
+
+To install command files into the current project instead of home directories:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/AgencyHandy/ahr/main/scripts/install-commands.sh -o /tmp/ahr-install-commands.sh && chmod +x /tmp/ahr-install-commands.sh && /tmp/ahr-install-commands.sh --project
+```
+
 ## Required Inputs
 
 1. PR links (one or more)
@@ -102,40 +136,6 @@ Required checks:
 7) UI confirmation steps per issue
 
 Return output in the documented PR Review format.
-```
-
-## Quick Start
-
-1. Install the skill:
-
-```bash
-npx skills add AgencyHandy/ahr --skill "ahr"
-```
-
-2. Install slash commands/prompts (global by default):
-
-```bash
-curl -fsSL https://raw.githubusercontent.com/AgencyHandy/ahr/main/scripts/install-commands.sh -o /tmp/ahr-install-commands.sh && chmod +x /tmp/ahr-install-commands.sh && /tmp/ahr-install-commands.sh
-```
-
-The installer auto-detects Codex, Claude, and OpenCode from your system and installs only for detected tools.
-It also respects `CODEX_HOME`, `CLAUDE_CONFIG_DIR`, and `OPENCODE_CONFIG_DIR` when set.
-To pin to a release tag, pass `AHR_REF` (example: `AHR_REF=v0.2.0 /tmp/ahr-install-commands.sh`).
-
-3. Run:
-
-```text
-Codex: /prompts:ahr PRS="https://github.com/org/repo/pull/1 https://github.com/org/repo/pull/2" CONTEXT="..." MODE=full
-Claude/OpenCode: /ahr PRS="https://github.com/org/repo/pull/1 https://github.com/org/repo/pull/2" CONTEXT="..." MODE=full
-```
-
-You can run these slash commands in terminal and desktop app environments for the corresponding tool.
-Examples: Codex desktop app, Claude Code app/CLI, and OpenCode UI/TUI.
-
-To install command files into the current project instead of home directories:
-
-```bash
-curl -fsSL https://raw.githubusercontent.com/AgencyHandy/ahr/main/scripts/install-commands.sh -o /tmp/ahr-install-commands.sh && chmod +x /tmp/ahr-install-commands.sh && /tmp/ahr-install-commands.sh --project
 ```
 
 ## Repository Layout
