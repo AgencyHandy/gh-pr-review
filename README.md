@@ -1,4 +1,4 @@
-# GH PR Review Checklist
+# AHR PR Review Checklist
 
 A portable review spec for auditing one or more related GitHub PRs using `gh` (without local checkout).
 
@@ -104,37 +104,46 @@ Required checks:
 Return output in the documented PR Review format.
 ```
 
-## Codex Setup
+## Quick Start
 
-### Skill
+1. Install the skill:
 
-Place the skill at:
-
-- `~/.agents/skills/gh-pr-review-checklist/SKILL.md`
-
-### Slash Command
-
-Place this prompt file at:
-
-- `~/.codex/prompts/pr-review-gh.md`
-
-Run as:
-
-```text
-/prompts:pr-review-gh PRS="https://github.com/org/repo/pull/1 https://github.com/org/repo/pull/2" CONTEXT="..." MODE=full
+```bash
+npx skills add AgencyHandy/ahr --skill "ahr"
 ```
 
-If it does not appear immediately, open a new chat or restart Codex.
+2. Install slash commands/prompts (global by default):
 
-## Claude Setup
+```bash
+./scripts/install-commands.sh
+```
 
-Claude does not use Codex `SKILL.md` or `/prompts:...` paths directly.
+The installer auto-detects Codex, Claude, and OpenCode from your system and installs only for detected tools.
+It also respects `CODEX_HOME`, `CLAUDE_CONFIG_DIR`, and `OPENCODE_CONFIG_DIR` when set.
 
-Use one of these:
+3. Run:
 
-1. Save the portable prompt as a project/system instruction in Claude.
-2. Create a custom slash/quick command in your Claude client (if supported) that injects the same prompt with `PRS`, `CONTEXT`, and optional `MODE`.
-3. Paste the Core Prompt manually when needed.
+```text
+Codex: /prompts:ahr PRS="https://github.com/org/repo/pull/1 https://github.com/org/repo/pull/2" CONTEXT="..." MODE=full
+Claude/OpenCode: /ahr PRS="https://github.com/org/repo/pull/1 https://github.com/org/repo/pull/2" CONTEXT="..." MODE=full
+```
+
+You can run these slash commands in terminal and desktop app environments for the corresponding tool.
+Examples: Codex desktop app, Claude Code app/CLI, and OpenCode UI/TUI.
+
+To install command files into the current project instead of home directories:
+
+```bash
+./scripts/install-commands.sh --project
+```
+
+## Repository Layout
+
+- `skills/ahr/SKILL.md` - skill package for `npx skills add`
+- `.codex/prompts/ahr.md` - Codex prompt command source
+- `.claude/commands/ahr.md` - Claude command source
+- `.opencode/commands/ahr.md` - OpenCode command source
+- `scripts/install-commands.sh` - helper installer for command files
 
 ## Any Other Tool
 
