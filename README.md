@@ -115,11 +115,12 @@ npx skills add AgencyHandy/ahr --skill "ahr"
 2. Install slash commands/prompts (global by default):
 
 ```bash
-./scripts/install-commands.sh
+curl -fsSL https://raw.githubusercontent.com/AgencyHandy/ahr/main/scripts/install-commands.sh -o /tmp/ahr-install-commands.sh && chmod +x /tmp/ahr-install-commands.sh && /tmp/ahr-install-commands.sh
 ```
 
 The installer auto-detects Codex, Claude, and OpenCode from your system and installs only for detected tools.
 It also respects `CODEX_HOME`, `CLAUDE_CONFIG_DIR`, and `OPENCODE_CONFIG_DIR` when set.
+To pin to a release tag, pass `AHR_REF` (example: `AHR_REF=v0.2.0 /tmp/ahr-install-commands.sh`).
 
 3. Run:
 
@@ -134,7 +135,7 @@ Examples: Codex desktop app, Claude Code app/CLI, and OpenCode UI/TUI.
 To install command files into the current project instead of home directories:
 
 ```bash
-./scripts/install-commands.sh --project
+curl -fsSL https://raw.githubusercontent.com/AgencyHandy/ahr/main/scripts/install-commands.sh -o /tmp/ahr-install-commands.sh && chmod +x /tmp/ahr-install-commands.sh && /tmp/ahr-install-commands.sh --project
 ```
 
 ## Repository Layout

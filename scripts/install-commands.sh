@@ -2,6 +2,8 @@
 set -euo pipefail
 
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+RAW_REPO_BASE="https://raw.githubusercontent.com/AgencyHandy/ahr"
+AHR_REF="${AHR_REF:-main}"
 
 usage() {
   cat <<'USAGE'
@@ -24,23 +26,43 @@ copy_file() {
   printf 'Installed %s\n' "$dst"
 }
 
+download_file() {
+  local src="$1"
+  local dst="$2"
+  mkdir -p "$(dirname "$dst")"
+  curl -fsSL "$src" -o "$dst"
+  printf 'Installed %s\n' "$dst"
+}
+
+install_template() {
+  local relative_path="$1"
+  local destination="$2"
+  local local_source="$REPO_ROOT/$relative_path"
+
+  if [[ -f "$local_source" ]]; then
+    copy_file "$local_source" "$destination"
+  else
+    download_file "$RAW_REPO_BASE/$AHR_REF/$relative_path" "$destination"
+  fi
+}
+
 has_cmd() {
   command -v "$1" >/dev/null 2>&1
 }
 
 install_codex() {
   local target_home="${CODEX_HOME:-$HOME/.codex}"
-  copy_file "$REPO_ROOT/.codex/prompts/ahr.md" "$target_home/prompts/ahr.md"
+  install_template ".codex/prompts/ahr.md" "$target_home/prompts/ahr.md"
 }
 
 install_claude() {
   local target_home="${CLAUDE_CONFIG_DIR:-$HOME/.claude}"
-  copy_file "$REPO_ROOT/.claude/commands/ahr.md" "$target_home/commands/ahr.md"
+  install_template ".claude/commands/ahr.md" "$target_home/commands/ahr.md"
 }
 
 install_opencode() {
   local target_home="${OPENCODE_CONFIG_DIR:-$HOME/.config/opencode}"
-  copy_file "$REPO_ROOT/.opencode/commands/ahr.md" "$target_home/commands/ahr.md"
+  install_template ".opencode/commands/ahr.md" "$target_home/commands/ahr.md"
 }
 
 MODE="global"
@@ -98,9 +120,9 @@ if [[ "$MODE" == "global" ]]; then
   fi
 else
   PROJECT_ROOT="$PWD"
-  copy_file "$REPO_ROOT/.codex/prompts/ahr.md" "$PROJECT_ROOT/.codex/prompts/ahr.md"
-  copy_file "$REPO_ROOT/.claude/commands/ahr.md" "$PROJECT_ROOT/.claude/commands/ahr.md"
-  copy_file "$REPO_ROOT/.opencode/commands/ahr.md" "$PROJECT_ROOT/.opencode/commands/ahr.md"
+  install_template ".codex/prompts/ahr.md" "$PROJECT_ROOT/.codex/prompts/ahr.md"
+  install_template ".claude/commands/ahr.md" "$PROJECT_ROOT/.claude/commands/ahr.md"
+  install_template ".opencode/commands/ahr.md" "$PROJECT_ROOT/.opencode/commands/ahr.md"
 fi
 
 printf '\nDone. Use:\n'
